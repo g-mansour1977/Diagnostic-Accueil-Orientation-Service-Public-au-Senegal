@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Diagnostic de l’accueil et de l’orientation - Questionnaire usagers</title>
+  <style>
+    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;margin:18px;background:#f7fafc;color:#0f172a}
+    .container{max-width:900px;margin:0 auto;background:#fff;padding:20px;border-radius:8px;box-shadow:0 6px 18px rgba(2,6,23,0.08)}
+    h1{font-size:20px;margin-bottom:6px}
+    .field{margin-bottom:14px}
+    label{display:block;font-weight:600;margin-bottom:6px}
+    .inline{display:flex;gap:12px;flex-wrap:wrap}
+    input[type="text"], textarea, select{width:100%;padding:8px;border:1px solid #d1d5db;border-radius:6px}
+    textarea{min-height:80px}
+    .btn{display:inline-block;padding:10px 14px;border-radius:8px;border:0;background:#2563eb;color:white;font-weight:600;cursor:pointer}
+    .muted{color:#6b7280;font-size:13px}
+    .success{background:#ecfdf5;border:1px solid #bbf7d0;color:#065f46;padding:10px;border-radius:6px;margin-top:10px}
+    .error{background:#fff1f2;border:1px solid #fda4af;color:#9f1239;padding:10px;border-radius:6px;margin-top:10px}
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>Diagnostic de l’accueil et de l’orientation dans le service public</h1>
+    <p class="muted">Questionnaire usagers — (non nominatif)</p>
+
+     <form id="questionnaire">
+
+      <h3>I - Profil de l’usager</h3>
+      <div class="field">
+        <label>1.1 - À quelle fréquence fréquentez-vous les services publics ?</label>
+        <div class="inline">
+          <label><input type="radio" name="freq" value="Occasionnellement" required> Occasionnellement</label>
+          <label><input type="radio" name="freq" value="Régulièrement"> Régulièrement</label>
+          <label><input type="radio" name="freq" value="Très souvent"> Très souvent</label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>1.2 - Quel est l’objet principal de vos visites ?</label>
+        <div class="inline">
+          <label><input type="checkbox" name="objet" value="Recherche d’informations"> Recherche d’informations</label>
+          <label><input type="checkbox" name="objet" value="Dépôt de dossiers"> Dépôt de dossiers</label>
+          <label><input type="checkbox" name="objet" value="Réclamations"> Réclamations</label>
+          <label><input type="checkbox" name="objet" value="Suivi de dossiers"> Suivi de dossiers</label>
+        </div>
+        <div style="margin-top:8px">
+          <label>Autres (précisez)</label>
+          <input type="text" name="objet_autre" placeholder="Si autre, précisez...">
+        </div>
+      </div>
+
+      <h3>II - Qualité de l’accueil physique</h3>
+      <div class="field">
+        <label>2.1 - Comment évaluez-vous l’accueil à votre arrivée ?</label>
+        <div class="inline">
+          <label><input type="radio" name="accueil_eval" value="Très satisfaisant" required> Très satisfaisant</label>
+          <label><input type="radio" name="accueil_eval" value="Satisfaisant"> Satisfaisant</label>
+          <label><input type="radio" name="accueil_eval" value="Peu satisfaisant"> Peu satisfaisant</label>
+          <label><input type="radio" name="accueil_eval" value="Pas du tout satisfaisant"> Pas du tout satisfaisant</label>
+        </div>
+        <label>Pourquoi ? (facultatif)</label>
+        <textarea name="accueil_pourquoi"></textarea>
+      </div>
+
+      <div class="field">
+        <label>2.2 - Le personnel d’accueil était-il disponible, courtois et attentif ?</label>
+        <div class="inline">
+          <label><input type="radio" name="personnel_dispo" value="Oui tout à fait" required> Oui tout à fait</label>
+          <label><input type="radio" name="personnel_dispo" value="Plutôt oui"> Plutôt oui</label>
+          <label><input type="radio" name="personnel_dispo" value="Plutôt non"> Plutôt non</label>
+          <label><input type="radio" name="personnel_dispo" value="Pas du tout"> Pas du tout</label>
+        </div>
+        <label>Si non, comment s’est-il comporté ?</label>
+        <textarea name="personnel_comment"></textarea>
+      </div>
+
+      <div class="field">
+        <label>2.3 - L’orientation vers le bon service a-t-elle été claire et rapide ?</label>
+        <div class="inline">
+          <label><input type="radio" name="orientation" value="Oui" required> Oui</label>
+          <label><input type="radio" name="orientation" value="Partiellement"> Partiellement</label>
+          <label><input type="radio" name="orientation" value="Non"> Non</label>
+        </div>
+        <label>Si non pourquoi ?</label>
+        <input type="text" name="orientation_pourquoi">
+      </div>
+
+      <div class="field">
+        <label>2.4 - Avez-vous rencontré des difficultés particulières à l’accueil ?</label>
+        <div class="inline">
+          <label><input type="radio" name="difficulte_accueil" value="Oui" required> Oui</label>
+          <label><input type="radio" name="difficulte_accueil" value="Non"> Non</label>
+        </div>
+        <label>Si oui, lesquelles ?</label>
+        <textarea name="difficulte_precisions"></textarea>
+      </div>
+
+      <h3>III - Accès à l’information</h3>
+      <div class="field">
+        <label>3.1 - Les informations affichées sont-elles : </label>
+        <div class="inline">
+          <label><input type="radio" name="infos_affichees" value="Claires" required> Claires</label>
+          <label><input type="radio" name="infos_affichees" value="Moyennement claires"> Moyennement claires</label>
+          <label><input type="radio" name="infos_affichees" value="Peu claires"> Peu claires</label>
+          <label><input type="radio" name="infos_affichees" value="Absentes / inexistantes"> Absentes / inexistantes</label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>3.2 - Avez-vous facilement compris les procédures à suivre ?</label>
+        <div class="inline">
+          <label><input type="radio" name="procedures_comp" value="Oui" required> Oui</label>
+          <label><input type="radio" name="procedures_comp" value="Partiellement"> Partiellement</label>
+          <label><input type="radio" name="procedures_comp" value="Non"> Non</label>
+        </div>
+        <label>Sinon pourquoi ?</label>
+        <input type="text" name="procedures_pourquoi">
+      </div>
+
+      <div class="field">
+        <label>3.3 - Quels types d’informations vous ont manqué ? (plusieurs choix possibles)</label>
+        <div class="inline">
+          <label><input type="checkbox" name="manque_info" value="Procédures"> Procédures</label>
+          <label><input type="checkbox" name="manque_info" value="Délais"> Délais</label>
+          <label><input type="checkbox" name="manque_info" value="Documents nécessaires"> Documents nécessaires</label>
+          <label><input type="checkbox" name="manque_info" value="Coûts éventuels"> Coûts éventuels</label>
+          <label><input type="checkbox" name="manque_info" value="Contacts / lieux"> Contacts / lieux</label>
+        </div>
+        <label>Autres :</label>
+        <input type="text" name="manque_info_autre">
+      </div>
+
+      <h3>IV - Temps d’attente et conditions matérielles</h3>
+      <div class="field">
+        <label>4.1 - Le temps d’attente avant d’être servi a été :</label>
+        <div class="inline">
+          <label><input type="radio" name="temps_attente" value="Très court" required> Très court</label>
+          <label><input type="radio" name="temps_attente" value="Acceptable"> Acceptable</label>
+          <label><input type="radio" name="temps_attente" value="Long"> Long</label>
+          <label><input type="radio" name="temps_attente" value="Très long"> Très long</label>
+        </div>
+        <label>S’il a été long, pourquoi ?</label>
+        <input type="text" name="attente_pourquoi">
+      </div>
+
+      <div class="field">
+        <label>4.2 - Comment évaluez-vous les conditions matérielles d’accueil ?</label>
+        <div class="inline">
+          <label><input type="radio" name="conditions_mat" value="Très satisfaisantes" required> Très satisfaisantes</label>
+          <label><input type="radio" name="conditions_mat" value="Satisfaisantes"> Satisfaisantes</label>
+          <label><input type="radio" name="conditions_mat" value="Moyennes"> Moyennes</label>
+          <label><input type="radio" name="conditions_mat" value="Insatisfaisantes"> Insatisfaisantes</label>
+        </div>
+        <label>Pourquoi ?</label>
+        <textarea name="conditions_pourquoi"></textarea>
+      </div>
+
+      <div class="field">
+        <label>4.3 - Les files d’attente ou circuits usagers sont-ils bien organisés ?</label>
+        <div class="inline">
+          <label><input type="radio" name="files_organisees" value="Oui" required> Oui</label>
+          <label><input type="radio" name="files_organisees" value="Partiellement"> Partiellement</label>
+          <label><input type="radio" name="files_organisees" value="Non"> Non</label>
+        </div>
+        <label>Pourquoi ?</label>
+        <input type="text" name="files_pourquoi">
+      </div>
+
+      <h3>V - Qualité du service public</h3>
+      <div class="field">
+        <label>5.1 - Obtenez-vous satisfaction lorsque vous vous rendez dans un Service public ?</label>
+        <div class="inline">
+          <label><input type="radio" name="satisfaction_obtenue" value="Oui" required> Oui</label>
+          <label><input type="radio" name="satisfaction_obtenue" value="Partiellement"> Partiellement</label>
+          <label><input type="radio" name="satisfaction_obtenue" value="Non"> Non</label>
+        </div>
+        <label>Pourquoi ?</label>
+        <textarea name="satisfaction_pourquoi"></textarea>
+      </div>
+
+      <div class="field">
+        <label>5.2 - Comment évaluez-vous la qualité générale de l’accueil ?</label>
+        <div class="inline">
+          <label><input type="radio" name="qualite_accueil" value="Très bonne" required> Très bonne</label>
+          <label><input type="radio" name="qualite_accueil" value="Bonne"> Bonne</label>
+          <label><input type="radio" name="qualite_accueil" value="Moyenne"> Moyenne</label>
+          <label><input type="radio" name="qualite_accueil" value="Mauvaise"> Mauvaise</label>
+        </div>
+        <label>Pourquoi ?</label>
+        <textarea name="qualite_pourquoi"></textarea>
+      </div>
+
+      <h3>VI - Satisfaction globale et pistes d’amélioration</h3>
+      <div class="field">
+        <label>6.1 - Globalement, êtes-vous satisfait de l’accueil dans le service public ?</label>
+        <div class="inline">
+          <label><input type="radio" name="satisfaction_globale" value="Très satisfait" required> Très satisfait</label>
+          <label><input type="radio" name="satisfaction_globale" value="Satisfait"> Satisfait</label>
+          <label><input type="radio" name="satisfaction_globale" value="Peu satisfait"> Peu satisfait</label>
+          <label><input type="radio" name="satisfaction_globale" value="Pas du tout satisfait"> Pas du tout satisfait</label>
+        </div>
+        <label>Pourquoi ?</label>
+        <textarea name="satisfaction_globale_pourquoi"></textarea>
+      </div>
+
+      <div class="field">
+        <label>6.2 - Quelles améliorations prioritaires recommanderiez-vous ? (choix multiples)</label>
+        <div class="inline">
+          <label><input type="checkbox" name="ameliorations" value="Réduction du temps d’attente"> Réduction du temps d’attente</label>
+          <label><input type="checkbox" name="ameliorations" value="Meilleure orientation"> Meilleure orientation</label>
+          <label><input type="checkbox" name="ameliorations" value="Meilleure disponibilité du personnel"> Meilleure disponibilité du personnel</label>
+          <label><input type="checkbox" name="ameliorations" value="Amélioration des locaux / signalisation"> Amélioration des locaux / signalisation</label>
+          <label><input type="checkbox" name="ameliorations" value="Mise à disposition d’informations plus claires"> Mise à disposition d’informations plus claires</label>
+          <label><input type="checkbox" name="ameliorations" value="Digitalisation des services"> Digitalisation des services</label>
+        </div>
+        <label>Autre :</label>
+        <input type="text" name="ameliorations_autre">
+      </div>
+
+      <div class="field">
+        <label>6.3 - Avez-vous des suggestions supplémentaires ?</label>
+        <textarea name="suggestions"></textarea>
+      </div>
+
+      <div style="display:flex;gap:10px;align-items:center">
+        <button class="btn" type="submit">Envoyer</button>
+        <div id="status"></div>
+      </div>
+
+    </form>
+
+    <!-- BOUTON DE TÉLÉCHARGEMENT PDF -->
+    <div style="margin-top:18px">
+      <button class="btn" type="button" onclick="telechargerPDF()">Télécharger en PDF</button>
+    </div>
+
+    <hr style="margin:18px 0">
+    <div class="muted">Instructions : après déploiement du script Apps Script (Code.gs) copiez l'URL du script déployé et placez-la dans la variable <code>SCRIPT_URL</code> dans le code JavaScript ci-dessous.</div>
+
+  </div>
+
+  <!-- SCRIPT PDF (HTML2PDF INTÉGRÉ) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <script>
+    function telechargerPDF() {
+      const element = document.querySelector('.container');
+
+      const options = {
+        margin: 0.5,
+        filename: 'questionnaire_usagers.pdf',
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2 },
+        jsPDF: { unit: 'in', format: 'A4', orientation: 'portrait' }
+      };
+
+      html2pdf().set(options).from(element).save();
+    }
+  </script>
+
+</body>
+</html>
