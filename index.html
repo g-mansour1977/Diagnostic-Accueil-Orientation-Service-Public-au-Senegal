@@ -1,3 +1,9 @@
+<!--
+Fichier: questionnaire_accueil_orientation.html
+But: Formulaire HTML interactif connecté à Google Sheets via Google Apps Script.
+Contenu: 1) index.html (formulaire + JS) 2) Code.gs (Apps Script serveur) 3) Instructions de déploiement
+-->
+
 <!doctype html>
 <html lang="fr">
 <head>
@@ -19,13 +25,12 @@
     .error{background:#fff1f2;border:1px solid #fda4af;color:#9f1239;padding:10px;border-radius:6px;margin-top:10px}
   </style>
 </head>
-
 <body>
   <div class="container">
     <h1>Diagnostic de l’accueil et de l’orientation dans le service public</h1>
     <p class="muted">Questionnaire usagers — (non nominatif)</p>
 
-     <form id="questionnaire">
+    <form id="questionnaire">
 
       <h3>I - Profil de l’usager</h3>
       <div class="field">
@@ -228,36 +233,95 @@
         <button class="btn" type="submit">Envoyer</button>
         <div id="status"></div>
       </div>
+    
+ <!-- SCRIPT PDF (HTML2PDF CORRIGÉ) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
-    </form>
+<script>
+function telechargerPDF() {
 
-    <!-- BOUTON DE TÉLÉCHARGEMENT PDF -->
+  // On capture uniquement le contenu visible du formulaire
+  const element = document.querySelector('.container');
+
+  // Correction : forcer un style propre pour éviter coupures
+  const opt = {
+    margin:       0.2,
+    filename:     'questionnaire_usagers.pdf',
+    image:        { type: 'jpeg', quality: 1 },
+    html2canvas:  { scale: 3, useCORS: true, scrollY: 0 },
+    jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+  };
+
+  // Correction importante : scroll vers le haut avant capture
+  window.scrollTo(0,0);
+
+  html2pdf().set(opt).from(element).save();
+}
+</script>
+
+  </form>
+
+   <!-- BOUTON DE TÉLÉCHARGEMENT PDF -->
     <div style="margin-top:18px">
       <button class="btn" type="button" onclick="telechargerPDF()">Télécharger en PDF</button>
     </div>
 
-    <hr style="margin:18px 0">
-    <div class="muted">Instructions : après déploiement du script Apps Script (Code.gs) copiez l'URL du script déployé et placez-la dans la variable <code>SCRIPT_URL</code> dans le code JavaScript ci-dessous.</div>
+    
 
-  </div>
-
-  <!-- SCRIPT PDF (HTML2PDF INTÉGRÉ) -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
   <script>
-    function telechargerPDF() {
-      const element = document.querySelector('.container');
+    // Remplacez par l'URL de votre Web App Apps Script (voir instructions dans le fichier Code.gs ci-dessous)
+    const SCRIPT_URL = "REPLACE_WITH_YOUR_APPS_SCRIPT_WEBAPP_URL";
 
-      const options = {
-        margin: 0.5,
-        filename: 'questionnaire_usagers.pdf',
-        image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { scale: 2 },
-        jsPDF: { unit: 'in', format: 'A4', orientation: 'portrait' }
-      };
-
-      html2pdf().set(options).from(element).save();
+    function formToObject(form) {
+      const data = {};
+      const f = new FormData(form);
+      // gérer champs multiples
+      for (const [key, value] of f.entries()) {
+        if (data[key]) {
+          // convertir en array
+          if (!Array.isArray(data[key])) data[key] = [data[key]];
+          data[key].push(value);
+        } else {
+          data[key] = value;
+        }
+      }
+      return data;
     }
+
+    document.getElementById('questionnaire').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const form = e.target;
+      const statusDiv = document.getElementById('status');
+      statusDiv.innerHTML = '';
+
+      if (SCRIPT_URL === 'https://script.google.com/macros/s/AKfycbzILDm5WjiqpdAwnuXSGS9-LPgCM5t5JJ637z3A7Zb0t1vgLA925GJuNQE0jpWseGlO/exec'){
+        statusDiv.innerHTML = '<div class="error">Erreur: l\'URL du script Apps Script n\'est pas configurée. Voir instructions.</div>';
+        return;
+      }
+
+      const payload = formToObject(form);
+
+      try {
+        const resp = await fetch(SCRIPT_URL, {
+          method: 'POST',
+          mode: 'cors',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        const txt = await resp.text();
+        if (resp.ok) {
+          statusDiv.innerHTML = '<div class="success">Merci — votre réponse a été enregistrée.</div>';
+          form.reset();
+        } else {
+          statusDiv.innerHTML = '<div class="error">Erreur du serveur : ' + txt + '</div>';
+        }
+      } catch (err) {
+        statusDiv.innerHTML = '<div class="error">Échec de connexion : ' + err.message + '</div>';
+      }
+    });
   </script>
 
+
+ 
 </body>
 </html>
