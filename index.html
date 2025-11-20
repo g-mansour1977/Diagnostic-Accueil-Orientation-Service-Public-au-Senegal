@@ -268,17 +268,14 @@ function telechargerPDF() {
 
     
 
-  <script>
-    // Remplacez par l'URL de votre Web App Apps Script (voir instructions dans le fichier Code.gs ci-dessous)
+ <script>
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycby_izWGTxhh9DiNb4MKXCdHISokvAYIeFRpxqDCcJeEQIwqW8F6IXprRMLoHWW8nFxs/exec";
 
     function formToObject(form) {
       const data = {};
       const f = new FormData(form);
-      // gérer champs multiples
       for (const [key, value] of f.entries()) {
         if (data[key]) {
-          // convertir en array
           if (!Array.isArray(data[key])) data[key] = [data[key]];
           data[key].push(value);
         } else {
@@ -290,36 +287,29 @@ function telechargerPDF() {
 
     document.getElementById('questionnaire').addEventListener('submit', async (e) => {
       e.preventDefault();
+
       const form = e.target;
       const statusDiv = document.getElementById('status');
       statusDiv.innerHTML = '';
-
-      if (SCRIPT_URL === 'https://script.google.com/macros/s/AKfycbzILDm5WjiqpdAwnuXSGS9-LPgCM5t5JJ637z3A7Zb0t1vgLA925GJuNQE0jpWseGlO/exec'){
-        statusDiv.innerHTML = '<div class="error">Erreur: l\'URL du script Apps Script n\'est pas configurée. Voir instructions.</div>';
-        return;
-      }
 
       const payload = formToObject(form);
 
       try {
         const resp = await fetch(SCRIPT_URL, {
           method: 'POST',
-          mode: 'cors',
+          mode: 'no-cors', // OBLIGATOIRE POUR APPS SCRIPT
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(payload)
         });
-        const txt = await resp.text();
-        if (resp.ok) {
-          statusDiv.innerHTML = '<div class="success">Merci — votre réponse a été enregistrée.</div>';
-          form.reset();
-        } else {
-          statusDiv.innerHTML = '<div class="error">Erreur du serveur : ' + txt + '</div>';
-        }
-      } catch (err) {
+
+        statusDiv.innerHTML = '<div class="success">Merci — votre réponse a été enregistrée.</div>';
+        form.reset();
+      } 
+      catch (err) {
         statusDiv.innerHTML = '<div class="error">Échec de connexion : ' + err.message + '</div>';
       }
     });
-  </script>
+</script>
 
 
  
