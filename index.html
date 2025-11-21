@@ -301,24 +301,25 @@ function telechargerPDF() {
 
       const payload = formToObject(form);
 
-      try {
-        const resp = await fetch(SCRIPT_URL, {
-          method: 'POST',
-          mode: 'no-cors',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload)
-        });
-        const txt = await resp.text();
-        if (resp.ok) {
-          statusDiv.innerHTML = '<div class="success">Merci — votre réponse a été enregistrée.</div>';
-          form.reset();
-        } else {
-          statusDiv.innerHTML = '<div class="error">Erreur du serveur : ' + txt + '</div>';
-        }
-      } catch (err) {
-        statusDiv.innerHTML = '<div class="error">Échec de connexion : ' + err.message + '</div>';
-      }
-    });
+     try {
+  const resp = await fetch(SCRIPT_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  });
+
+  const result = await resp.json();
+
+  if (result.result === "success") {
+    statusDiv.innerHTML = '<div class="success">Merci — votre réponse a été enregistrée.</div>';
+    form.reset();
+  } else {
+    statusDiv.innerHTML = '<div class="error">Erreur du serveur : ' + result.error + '</div>';
+  }
+} catch (err) {
+  statusDiv.innerHTML = '<div class="error">Échec de connexion : ' + err.message + '</div>';
+}
+
   </script>
 
 
